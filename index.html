@@ -3,27 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corrientes Gnoseológicas - Presentación</title>
-    
-    <!-- Fuentes de Google -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,500;0,700;0,800;1,500&display=swap" rel="stylesheet">
-
+    <!-- Título de la pestaña -->
+    <title>Corrientes Gnoseológicas</title>
     <style>
-        /* --- ESTILOS BASE Y VARIABLES --- */
+        /* === ESTILOS BASE Y VARIABLES === */
         :root {
-            --bg-light: #E8F5E9;
-            --green-900: #14532D;
-            --green-800: #166534;
-            --green-700: #15803D;
-            --green-500: #22C55E;
-            --green-400: #4ADE80;
-            --green-100: #DCFCE7;
-            --green-50: #F0FDF4;
-            --text-dark: #1F2937;
-            --text-gray: #374151;
-            --text-light: #4B5563;
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --accent: #27ae60;
+            --accent-hover: #219653;
+            --bg-color: #ecf0f1;
+            --slide-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border-color: #e0e0e0;
         }
 
         * {
@@ -32,913 +25,656 @@
             padding: 0;
         }
 
+        /* Uso de fuentes nativas del sistema para evitar bloqueos en GitHub */
         body {
-            font-family: 'Lato', sans-serif;
-            background-color: var(--bg-light);
-            min-height: 100vh;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            color: var(--text-dark);
-        }
-
-        h1, h2, h3, .font-montserrat {
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        /* --- CONTENEDOR PRINCIPAL (DIAPOSITIVA 16:9) --- */
-        .presentation-container {
-            width: 100%;
-            max-width: 1280px;
-            aspect-ratio: 16 / 9;
-            background-color: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             overflow: hidden;
-            position: relative;
-            display: flex;
-            flex-direction: column;
         }
 
-        /* --- DIAPOSITIVAS --- */
+        /* === CONTENEDOR DE LA PRESENTACIÓN === */
+        #presentation-area {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .slide-container {
+            width: 100%;
+            max-width: 1000px;
+            aspect-ratio: 16/9;
+            background-color: var(--slide-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+        }
+
+        /* === ESTILOS DE LAS DIAPOSITIVAS === */
         .slide {
-            display: none; /* Ocultas por defecto */
             width: 100%;
             height: 100%;
-            padding: 2.5rem;
-            background-color: white;
-            animation: fadeIn 0.5s ease-in-out;
+            padding: 40px;
+            display: none; /* Oculto por defecto */
+            flex-direction: column;
+            animation: fadeIn 0.4s ease-in-out;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
         .slide.active {
-            display: flex; /* Solo la activa se muestra */
-            flex-direction: column;
+            display: flex; /* Solo la clase active se muestra */
+            z-index: 10;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- DISEÑO: DIAPOSITIVA DE TÍTULO --- */
-        .title-slide {
-            flex-direction: row !important;
-            padding: 0;
-            border: 4px solid var(--green-900);
-            border-radius: 0.75rem;
-            overflow: hidden;
-            height: 100%;
-        }
-
-        .title-left {
-            width: 50%;
-            background-color: #1B5E20;
-            color: white;
-            display: flex;
-            flex-direction: column;
+        /* --- Diapositiva de Título --- */
+        .slide-title {
             justify-content: center;
             align-items: center;
-            padding: 3rem;
             text-align: center;
-            position: relative;
-        }
-
-        .title-left::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-color: black;
-            opacity: 0.1;
-        }
-
-        .title-content {
-            position: relative;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .title-icon svg {
-            width: 6rem;
-            height: 6rem;
-            color: #A7F3D0;
-            margin-bottom: 2rem;
-        }
-
-        .title-text {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-            letter-spacing: 0.025em;
-        }
-
-        .title-divider {
-            height: 0.25rem;
-            width: 8rem;
-            background-color: var(--green-400);
-            margin-bottom: 1.5rem;
-            border-radius: 9999px;
-        }
-
-        .title-subtitle {
-            font-size: 1.5rem;
-            font-style: italic;
-            font-weight: 300;
-            color: #D1FAE5;
-        }
-
-        .title-right {
-            width: 50%;
-            position: relative;
-        }
-
-        .title-right img {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .author-badge {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            background-color: white;
-            padding: 1rem 2rem;
-            border-top-left-radius: 1.5rem;
-            box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
-            border-top: 4px solid var(--green-900);
-            border-left: 4px solid var(--green-900);
-        }
-
-        .author-badge p {
-            font-size: 1.125rem;
-            font-weight: 700;
-            color: var(--green-900);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        /* --- DISEÑO: DIAPOSITIVAS DE CONTENIDO --- */
-        .content-header {
-            border-bottom: 4px solid var(--green-500);
-            padding-bottom: 1rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-
-        .content-header h2 {
-            font-size: 2.25rem;
-            font-weight: 700;
-            color: var(--green-900);
-            display: flex;
-            align-items: center;
-        }
-
-        .slide-number-badge {
-            background-color: var(--green-900);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
-            width: 3rem;
-            height: 3rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 0.5rem;
-            margin-right: 1rem;
-            font-size: 1.875rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        .content-body {
+        .slide-title h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .slide-title p {
+            font-size: 1.5rem;
+            color: #bdc3c7;
+            max-width: 80%;
+        }
+
+        .icon-large {
+            margin-bottom: 30px;
+        }
+
+        /* --- Diapositivas de Contenido --- */
+        .slide-header {
+            display: flex;
+            align-items: center;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .slide-number {
+            background-color: var(--primary);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            margin-right: 20px;
+        }
+
+        .slide-header h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+        }
+
+        .slide-content {
             display: flex;
             flex-direction: row;
-            gap: 2rem;
-            height: calc(100% - 5rem);
+            gap: 30px;
+            flex-grow: 1;
         }
 
-        /* Columna Izquierda */
-        .col-left {
-            width: 60%;
+        .content-left {
+            flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
-            padding-right: 1rem;
-            overflow-y: auto;
+            gap: 20px;
         }
 
-        .definition-box {
-            background-color: var(--green-50);
-            padding: 1.25rem;
-            border-radius: 0.5rem;
-            border-left: 4px solid var(--green-800);
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        .content-right {
+            flex: 1;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .definition {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: rgba(39, 174, 96, 0.1);
+            padding: 15px;
+            border-left: 5px solid var(--accent);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .bullet-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .bullet-list li {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .bullet-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2rem;
         }
 
         .section-title {
-            font-size: 1.125rem;
-            font-weight: 700;
-            color: var(--green-800);
+            font-size: 1.1rem;
+            color: var(--secondary);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
-        }
-
-        .definition-box p {
-            font-size: 1.125rem;
-            line-height: 1.625;
-            color: var(--text-gray);
-        }
-
-        .postulates-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .postulates-list li {
-            display: flex;
-            align-items: flex-start;
-            background-color: white;
-            padding: 0.75rem;
-            border-radius: 0.25rem;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            border: 1px solid #F3F4F6;
-            font-size: 1.125rem;
-            line-height: 1.625;
-            color: var(--text-gray);
-        }
-
-        .check-icon {
-            color: var(--green-500);
-            margin-right: 0.75rem;
-            margin-top: 0.25rem;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
             font-weight: bold;
         }
 
-        /* Columna Derecha */
-        .col-right {
-            width: 40%;
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-            height: 100%;
+        .author-box {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 15px;
         }
 
-        .image-container {
-            width: 100%;
-            height: 12rem;
-            border-radius: 0.75rem;
-            overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            position: relative;
-            flex-shrink: 0;
+        .author-box strong {
+            display: block;
+            color: var(--primary);
+            font-size: 1.1rem;
         }
 
-        .image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.7s;
+        .author-box span {
+            font-size: 0.9rem;
+            color: var(--text-muted);
         }
 
-        .image-container:hover img {
-            transform: scale(1.05);
-        }
-
-        .image-overlay {
-            position: absolute;
-            inset: 0;
-            background-color: var(--green-900);
-            mix-blend-mode: multiply;
-            opacity: 0.2;
-        }
-
-        .right-content-scroll {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-            overflow-y: auto;
-            padding-right: 0.5rem;
-        }
-
-        .small-section-title {
-            font-size: 0.875rem;
-            font-weight: 700;
-            color: var(--green-700);
-            border-bottom: 2px solid #BBF7D0;
-            padding-bottom: 0.25rem;
-            margin-bottom: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .author-card {
-            display: flex;
-            flex-direction: column;
-            background-color: #F9FAFB;
-            padding: 0.75rem;
-            border-radius: 0.375rem;
-            border: 1px solid #F3F4F6;
-            margin-bottom: 0.5rem;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        }
-
-        .author-era {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--green-700);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 0.25rem;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .author-names {
-            color: var(--text-dark);
-            font-weight: 600;
-            font-size: 0.875rem;
-        }
-
-        .differences-box {
-            font-size: 0.875rem;
-            line-height: 1.625;
-            color: var(--text-light);
+        .note-box {
             font-style: italic;
-            background-color: rgba(240, 253, 244, 0.5);
-            padding: 1rem;
-            border-radius: 0.375rem;
-            border-left: 4px solid var(--green-400);
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
         }
 
-        /* --- SCROLLBAR PERSONALIZADO --- */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1; 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #BBF7D0; 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #86efac; 
-        }
-
-        /* --- CONTROLES DE NAVEGACIÓN --- */
-        .controls-container {
-            margin-top: 2rem;
+        /* === BARRA DE CONTROLES INFERIOR === */
+        #controls-bar {
+            background-color: white;
+            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
-            max-width: 1280px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            z-index: 20;
         }
 
-        .slide-counter {
-            color: var(--green-800);
-            font-weight: 700;
-            padding: 0.5rem 1rem;
-            background-color: white;
-            border-radius: 9999px;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        .progress-text {
+            font-weight: bold;
+            color: var(--secondary);
         }
 
-        .btn-group {
+        .buttons {
             display: flex;
-            gap: 1rem;
+            gap: 15px;
         }
 
-        .btn {
-            display: flex;
-            align-items: center;
-            padding: 0.75rem 1.25rem;
-            border-radius: 0.5rem;
-            font-weight: 700;
-            font-family: 'Montserrat', sans-serif;
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s;
-            border: none;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .btn:disabled {
+        button:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
 
-        .btn svg {
-            width: 1.25rem;
-            height: 1.25rem;
-        }
-
-        .btn-outline {
-            background-color: white;
-            color: var(--green-800);
-            border: 1px solid var(--green-800);
-        }
-        .btn-outline:hover:not(:disabled) { background-color: var(--green-50); }
-
-        .btn-primary {
-            background-color: var(--green-800);
+        .btn-nav {
+            background-color: var(--primary);
             color: white;
         }
-        .btn-primary:hover:not(:disabled) { background-color: var(--green-900); }
 
-        .btn-accent {
-            background-color: var(--green-500);
-            color: white;
-        }
-        .btn-accent:hover:not(:disabled) { background-color: #16A34A; }
-
-        /* --- ESTILOS DE IMPRESIÓN / PDF --- */
-        @media print {
-            body {
-                background-color: white;
-                padding: 0;
-            }
-            .controls-container {
-                display: none;
-            }
-            .presentation-container {
-                box-shadow: none;
-                border-radius: 0;
-                max-width: 100%;
-                aspect-ratio: auto;
-                height: auto;
-                display: block;
-            }
-            .slide {
-                display: flex !important; /* Muestra todas las diapositivas */
-                height: 100vh;
-                page-break-after: always;
-                padding: 2rem;
-                align-items: flex-start;
-                justify-content: flex-start;
-            }
-            .title-slide {
-                border: 2px solid var(--green-900);
-            }
-            .col-left, .right-content-scroll {
-                overflow-y: visible;
-            }
+        .btn-nav:hover:not(:disabled) {
+            background-color: var(--secondary);
         }
 
-        /* --- RESPONSIVIDAD BÁSICA --- */
-        @media (max-width: 768px) {
-            .presentation-container { aspect-ratio: auto; height: 80vh; }
-            .content-body { flex-direction: column; overflow-y: auto; }
-            .col-left, .col-right { width: 100%; height: auto; }
-            .title-slide { flex-direction: column !important; }
-            .title-left, .title-right { width: 100%; }
-            .title-text { font-size: 2rem; }
+        /* RESPONSIVO */
+        @media (max-width: 800px) {
+            .slide-container { aspect-ratio: auto; height: 100%; max-height: 80vh; }
+            .slide-content { flex-direction: column; overflow-y: auto; }
+            .slide-title h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- CONTENEDOR DE LA PRESENTACIÓN -->
-    <div class="presentation-container">
-
-        <!-- DIAPOSITIVA 0: TÍTULO -->
-        <div class="slide title-slide" id="slide-0">
-            <div class="title-left">
-                <div class="title-content">
-                    <div class="title-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                        </svg>
-                    </div>
-                    <h1 class="title-text">Corrientes Gnoseológicas</h1>
-                    <div class="title-divider"></div>
-                    <h2 class="title-subtitle">Un análisis histórico y conceptual de la teoría del conocimiento</h2>
-                </div>
-            </div>
-            <div class="title-right">
-                <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=1000" alt="">
-                <div class="author-badge">
-                    <p>Presentación Académica</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- DIAPOSITIVA 1: ESCEPTICISMO -->
-        <div class="slide" id="slide-1">
-            <div class="content-header">
-                <h2><span class="slide-number-badge">1</span> Escepticismo</h2>
-            </div>
-            <div class="content-body">
-                <div class="col-left">
-                    <div class="definition-box">
-                        <h3 class="section-title">Definición</h3>
-                        <p>Doctrina gnoseológica que niega la posibilidad de alcanzar un conocimiento objetivo, firme, seguro y universalmente válido. Postula que la capacidad cognoscitiva humana está inherentemente limitada.</p>
-                    </div>
-                    <div>
-                        <h3 class="section-title">Postulados Esenciales</h3>
-                        <ul class="postulates-list">
-                            <li><span class="check-icon">✓</span> La epojé (suspensión del juicio) como única vía hacia la ataraxia (tranquilidad).</li>
-                            <li><span class="check-icon">✓</span> Relatividad de la percepción sensorial y debilidad de la razón deductiva.</li>
-                            <li><span class="check-icon">✓</span> Crítica a la actitud dogmática y a las verdades absolutas.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-right">
-                    <div class="image-container">
-                        <img src="https://images.unsplash.com/photo-1480796927426-f609979314bd?auto=format&fit=crop&q=80&w=800" alt="">
-                        <div class="image-overlay"></div>
-                    </div>
-                    <div class="right-content-scroll">
-                        <div>
-                            <h3 class="small-section-title">Autores Representativos</h3>
-                            <div class="author-card">
-                                <span class="author-era">Antigüedad</span>
-                                <span class="author-names">Pirrón de Elis, Sexto Empírico.</span>
-                            </div>
-                            <div class="author-card">
-                                <span class="author-era">Modernidad</span>
-                                <span class="author-names">Michel de Montaigne, David Hume.</span>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 class="small-section-title">Divergencias Principales</h3>
-                            <div class="differences-box">"Mientras que Pirrón sostuvo un escepticismo radical que buscaba la inacción para evitar el sufrimiento, David Hume propuso un escepticismo metodológico, reconociendo que la vida práctica requiere asentir a las probabilidades."</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- DIAPOSITIVA 2: EMPIRISMO -->
-        <div class="slide" id="slide-2">
-            <div class="content-header">
-                <h2><span class="slide-number-badge">2</span> Empirismo</h2>
-            </div>
-            <div class="content-body">
-                <div class="col-left">
-                    <div class="definition-box">
-                        <h3 class="section-title">Definición</h3>
-                        <p>Corriente epistemológica que sostiene que la experiencia sensible y la percepción son la única fuente válida y el límite del conocimiento humano.</p>
-                    </div>
-                    <div>
-                        <h3 class="section-title">Postulados Esenciales</h3>
-                        <ul class="postulates-list">
-                            <li><span class="check-icon">✓</span> La mente humana es una tabula rasa (hoja en blanco) al nacer.</li>
-                            <li><span class="check-icon">✓</span> Rechazo absoluto a la existencia de ideas innatas.</li>
-                            <li><span class="check-icon">✓</span> Todo conocimiento complejo se deriva de impresiones simples previas.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-right">
-                    <div class="image-container">
-                        <img src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=800" alt="">
-                        <div class="image-overlay"></div>
-                    </div>
-                    <div class="right-content-scroll">
-                        <div>
-                            <h3 class="small-section-title">Autores Representativos</h3>
-                            <div class="author-card">
-                                <span class="author-era">Antigüedad / Medioevo</span>
-                                <span class="author-names">Aristóteles, Guillermo de Ockham.</span>
-                            </div>
-                            <div class="author-card">
-                                <span class="author-era">Modernidad</span>
-                                <span class="author-names">John Locke, George Berkeley, David Hume.</span>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 class="small-section-title">Divergencias Principales</h3>
-                            <div class="differences-box">"Locke defiende un realismo empírico. Berkeley postula un inmaterialismo (ser es ser percibido), negando la materia. Hume lleva el empirismo a su límite lógico con el fenomenismo radical."</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- DIAPOSITIVA 3: RACIONALISMO -->
-        <div class="slide" id="slide-3">
-            <div class="content-header">
-                <h2><span class="slide-number-badge">3</span> Racionalismo</h2>
-            </div>
-            <div class="content-body">
-                <div class="col-left">
-                    <div class="definition-box">
-                        <h3 class="section-title">Definición</h3>
-                        <p>Doctrina que postula a la razón como la fuente principal, independiente y autónoma de todo conocimiento verdadero, estructurado bajo un modelo lógico-matemático.</p>
-                    </div>
-                    <div>
-                        <h3 class="section-title">Postulados Esenciales</h3>
-                        <ul class="postulates-list">
-                            <li><span class="check-icon">✓</span> Existencia de ideas innatas inherentes al intelecto humano.</li>
-                            <li><span class="check-icon">✓</span> El método deductivo como paradigma para edificar el sistema del saber.</li>
-                            <li><span class="check-icon">✓</span> Desconfianza profunda en la información provista por los sentidos.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-right">
-                    <div class="image-container">
-                        <img src="https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&q=80&w=800" alt="">
-                        <div class="image-overlay"></div>
-                    </div>
-                    <div class="right-content-scroll">
-                        <div>
-                            <h3 class="small-section-title">Autores Representativos</h3>
-                            <div class="author-card">
-                                <span class="author-era">Antigüedad</span>
-                                <span class="author-names">Platón, Parménides.</span>
-                            </div>
-                            <div class="author-card">
-                                <span class="author-era">Modernidad</span>
-                                <span class="author-names">René Descartes, Baruch Spinoza, G.W. Leibniz.</span>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 class="small-section-title">Divergencias Principales</h3>
-                            <div class="differences-box">"Descartes establece un dualismo sustancial. Spinoza resuelve esto con un monismo panteísta ('Deus sive Natura'). Leibniz propone un pluralismo ontológico basado en infinitas mónadas."</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- DIAPOSITIVA 4: REALISMO -->
-        <div class="slide" id="slide-4">
-            <div class="content-header">
-                <h2><span class="slide-number-badge">4</span> Realismo</h2>
-            </div>
-            <div class="content-body">
-                <div class="col-left">
-                    <div class="definition-box">
-                        <h3 class="section-title">Definición</h3>
-                        <p>Postura epistemológica y ontológica que afirma que los objetos del conocimiento tienen una existencia independiente del sujeto cognoscente que los aprehende.</p>
-                    </div>
-                    <div>
-                        <h3 class="section-title">Postulados Esenciales</h3>
-                        <ul class="postulates-list">
-                            <li><span class="check-icon">✓</span> El mundo externo es aprehensible y cognoscible.</li>
-                            <li><span class="check-icon">✓</span> La verdad es concebida como adecuación entre el intelecto y la realidad externa.</li>
-                            <li><span class="check-icon">✓</span> Independencia ontológica del objeto respecto de la mente.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-right">
-                    <div class="image-container">
-                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800" alt="">
-                        <div class="image-overlay"></div>
-                    </div>
-                    <div class="right-content-scroll">
-                        <div>
-                            <h3 class="small-section-title">Autores Representativos</h3>
-                            <div class="author-card">
-                                <span class="author-era">Antigüedad / Edad Media</span>
-                                <span class="author-names">Aristóteles, Tomás de Aquino.</span>
-                            </div>
-                            <div class="author-card">
-                                <span class="author-era">Contemporaneidad</span>
-                                <span class="author-names">Karl Popper, Hilary Putnam.</span>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 class="small-section-title">Divergencias Principales</h3>
-                            <div class="differences-box">"El realismo ingenuo asume que percibimos las cosas exactamente como son en sí mismas. El realismo crítico reconoce que nuestra percepción está mediada, pero refiere a una realidad objetiva."</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- DIAPOSITIVA 5: IDEALISMO -->
-        <div class="slide" id="slide-5">
-            <div class="content-header">
-                <h2><span class="slide-number-badge">5</span> Idealismo</h2>
-            </div>
-            <div class="content-body">
-                <div class="col-left">
-                    <div class="definition-box">
-                        <h3 class="section-title">Definición</h3>
-                        <p>Corriente que asevera que el conocimiento está fundamentalmente determinado por las estructuras del sujeto, siendo la realidad "idea" o dependiente de la actividad mental.</p>
-                    </div>
-                    <div>
-                        <h3 class="section-title">Postulados Esenciales</h3>
-                        <ul class="postulates-list">
-                            <li><span class="check-icon">✓</span> El sujeto cognoscente no es pasivo; construye activamente el objeto de conocimiento.</li>
-                            <li><span class="check-icon">✓</span> Distinción epistemológica central entre el fenómeno y el noúmeno (cosa en sí).</li>
-                            <li><span class="check-icon">✓</span> La primacía de la conciencia o el Espíritu en la constitución de la realidad.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-right">
-                    <div class="image-container">
-                        <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&q=80&w=800" alt="">
-                        <div class="image-overlay"></div>
-                    </div>
-                    <div class="right-content-scroll">
-                        <div>
-                            <h3 class="small-section-title">Autores Representativos</h3>
-                            <div class="author-card">
-                                <span class="author-era">Modernidad</span>
-                                <span class="author-names">Immanuel Kant.</span>
-                            </div>
-                            <div class="author-card">
-                                <span class="author-era">Siglo XIX</span>
-                                <span class="author-names">Fichte, Schelling, G.W.F. Hegel.</span>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 class="small-section-title">Divergencias Principales</h3>
-                            <div class="differences-box">"Kant propone que el sujeto impone formas a priori a la materia sensorial, manteniendo un noúmeno incognoscible. Hegel elimina el noúmeno, argumentando que toda realidad es desarrollo del Espíritu."</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- DIAPOSITIVA 6: POSITIVISMO -->
-        <div class="slide" id="slide-6">
-            <div class="content-header">
-                <h2><span class="slide-number-badge">6</span> Positivismo</h2>
-            </div>
-            <div class="content-body">
-                <div class="col-left">
-                    <div class="definition-box">
-                        <h3 class="section-title">Definición</h3>
-                        <p>Doctrina que restringe el conocimiento válido y riguroso a aquel derivado exclusivamente de la experiencia empírica y verificado a través del método científico riguroso.</p>
-                    </div>
-                    <div>
-                        <h3 class="section-title">Postulados Esenciales</h3>
-                        <ul class="postulates-list">
-                            <li><span class="check-icon">✓</span> Rechazo categórico de la metafísica, la teología y cualquier especulación apriorística.</li>
-                            <li><span class="check-icon">✓</span> La ley de los tres estados (teológico, metafísico, positivo).</li>
-                            <li><span class="check-icon">✓</span> Verificacionismo empírico como criterio de demarcación del significado.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-right">
-                    <div class="image-container">
-                        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800" alt="">
-                        <div class="image-overlay"></div>
-                    </div>
-                    <div class="right-content-scroll">
-                        <div>
-                            <h3 class="small-section-title">Autores Representativos</h3>
-                            <div class="author-card">
-                                <span class="author-era">Siglo XIX</span>
-                                <span class="author-names">Auguste Comte, John Stuart Mill.</span>
-                            </div>
-                            <div class="author-card">
-                                <span class="author-era">Siglo XX</span>
-                                <span class="author-names">Círculo de Viena (Carnap, Schlick).</span>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 class="small-section-title">Divergencias Principales</h3>
-                            <div class="differences-box">"El positivismo de Comte tenía un enfoque fuertemente histórico y sociológico. El neopositivismo lógico del Círculo de Viena se centró en el análisis lógico del lenguaje y el formalismo matemático."</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- DIAPOSITIVA 7: PRAGMATISMO -->
-        <div class="slide" id="slide-7">
-            <div class="content-header">
-                <h2><span class="slide-number-badge">7</span> Pragmatismo</h2>
-            </div>
-            <div class="content-body">
-                <div class="col-left">
-                    <div class="definition-box">
-                        <h3 class="section-title">Definición</h3>
-                        <p>Corriente filosófica que define el significado de una proposición y su estatuto de verdad en función de sus consecuencias prácticas, su utilidad y su eficacia instrumental.</p>
-                    </div>
-                    <div>
-                        <h3 class="section-title">Postulados Esenciales</h3>
-                        <ul class="postulates-list">
-                            <li><span class="check-icon">✓</span> La verdad no es estática; es mutable y contingente al contexto y a la resolución de problemas.</li>
-                            <li><span class="check-icon">✓</span> El conocimiento es un instrumento biológico y social de adaptación al entorno.</li>
-                            <li><span class="check-icon">✓</span> Rechazo de dualismos estériles (teoría/práctica, mente/cuerpo).</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-right">
-                    <div class="image-container">
-                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800" alt="">
-                        <div class="image-overlay"></div>
-                    </div>
-                    <div class="right-content-scroll">
-                        <div>
-                            <h3 class="small-section-title">Autores Representativos</h3>
-                            <div class="author-card">
-                                <span class="author-era">Siglos XIX y XX</span>
-                                <span class="author-names">Charles S. Peirce, William James, John Dewey.</span>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 class="small-section-title">Divergencias Principales</h3>
-                            <div class="differences-box">"Peirce lo concibió como un método lógico-semiótico. James lo derivó hacia una teoría de la verdad con implicaciones psicológicas. Dewey desarrolló el instrumentalismo enfocado en la educación."</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- CONTROLES DE NAVEGACIÓN -->
-    <div class="controls-container">
-        <div class="slide-counter font-montserrat" id="slide-counter">
-            Diapositiva 1 de 8
-        </div>
-        
-        <div class="btn-group">
-            <button class="btn btn-outline" id="btn-prev" disabled>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;">
-                    <polyline points="15 18 9 12 15 6"></polyline>
-                </svg> Anterior
-            </button>
-            <button class="btn btn-primary" id="btn-next">
-                Siguiente 
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 0.5rem;">
-                    <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-            </button>
-        </div>
-
-        <button class="btn btn-accent" id="btn-print">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;">
-                <polyline points="6 9 6 2 18 2 18 9"></polyline>
-                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
-                <rect x="6" y="14" width="12" height="8"></rect>
-            </svg> Exportar / PDF
-        </button>
-    </div>
-
-    <!-- SCRIPT DE FUNCIONALIDAD -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            let currentSlide = 0;
-            const slides = document.querySelectorAll('.slide');
-            const totalSlides = slides.length;
+    <!-- Área Principal de la Presentación -->
+    <div id="presentation-area">
+        <div class="slide-container" id="slider">
             
+            <!-- PORTADA -->
+            <div class="slide slide-title active" id="slide-0">
+                <div class="icon-large">
+                    <!-- Icono SVG Inline (No requiere internet) -->
+                    <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent);">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                    </svg>
+                </div>
+                <h1>Corrientes Gnoseológicas</h1>
+                <p>Análisis histórico y conceptual de las teorías del conocimiento humano</p>
+            </div>
+
+            <!-- DIAPOSITIVA 1 -->
+            <div class="slide" id="slide-1">
+                <div class="slide-header">
+                    <div class="slide-number">1</div>
+                    <h2>Escepticismo</h2>
+                </div>
+                <div class="slide-content">
+                    <div class="content-left">
+                        <div class="definition">
+                            Doctrina que niega la posibilidad de alcanzar un conocimiento objetivo, seguro y universalmente válido.
+                        </div>
+                        <div>
+                            <div class="section-title">Postulados Centrales</div>
+                            <ul class="bullet-list">
+                                <li>La capacidad cognoscitiva humana está inherentemente limitada.</li>
+                                <li><strong>Epojé:</strong> Suspensión del juicio como única vía hacia la tranquilidad mental (ataraxia).</li>
+                                <li>Crítica directa a la actitud dogmática y a la idea de verdades absolutas.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="content-right">
+                        <div>
+                            <div class="section-title">Representantes</div>
+                            <div class="author-box">
+                                <strong>Pirrón de Elis / Sexto Empírico</strong>
+                                <span>Escepticismo Antiguo (Radical)</span>
+                            </div>
+                            <div class="author-box">
+                                <strong>David Hume</strong>
+                                <span>Escepticismo Moderno (Metodológico/Mitigado)</span>
+                            </div>
+                        </div>
+                        <div class="note-box">
+                            "El escepticismo antiguo buscaba la inacción para evitar el sufrimiento, mientras que el moderno reconoce que la vida práctica requiere asumir probabilidades."
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DIAPOSITIVA 2 -->
+            <div class="slide" id="slide-2">
+                <div class="slide-header">
+                    <div class="slide-number">2</div>
+                    <h2>Empirismo</h2>
+                </div>
+                <div class="slide-content">
+                    <div class="content-left">
+                        <div class="definition">
+                            Corriente que sostiene que la experiencia sensible y la percepción son la única fuente válida del conocimiento.
+                        </div>
+                        <div>
+                            <div class="section-title">Postulados Centrales</div>
+                            <ul class="bullet-list">
+                                <li>La mente humana es una <strong>tabula rasa</strong> (hoja en blanco) al nacer.</li>
+                                <li>Rechazo absoluto a la existencia de ideas innatas.</li>
+                                <li>Todo conocimiento complejo es una asociación de impresiones simples previas.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="content-right">
+                        <div>
+                            <div class="section-title">Representantes</div>
+                            <div class="author-box">
+                                <strong>John Locke</strong>
+                                <span>Realismo Empírico (Cualidades primarias y secundarias)</span>
+                            </div>
+                            <div class="author-box">
+                                <strong>David Hume</strong>
+                                <span>Fenomenismo radical (Impresiones vs Ideas)</span>
+                            </div>
+                        </div>
+                        <div class="note-box">
+                            "Para el empirismo, el límite del conocimiento es el límite de la experiencia humana observable."
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DIAPOSITIVA 3 -->
+            <div class="slide" id="slide-3">
+                <div class="slide-header">
+                    <div class="slide-number">3</div>
+                    <h2>Racionalismo</h2>
+                </div>
+                <div class="slide-content">
+                    <div class="content-left">
+                        <div class="definition">
+                            Doctrina que postula a la <strong>razón</strong> como la fuente principal, independiente y autónoma de todo conocimiento verdadero.
+                        </div>
+                        <div>
+                            <div class="section-title">Postulados Centrales</div>
+                            <ul class="bullet-list">
+                                <li>Existencia de <strong>ideas innatas</strong> (ej. Dios, perfección, infinito) inherentes al intelecto.</li>
+                                <li>El método deductivo (matemático-lógico) como paradigma del saber.</li>
+                                <li>Desconfianza profunda en la información provista por los sentidos humanos.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="content-right">
+                        <div>
+                            <div class="section-title">Representantes</div>
+                            <div class="author-box">
+                                <strong>René Descartes</strong>
+                                <span>Padre del racionalismo moderno ("Pienso, luego existo").</span>
+                            </div>
+                            <div class="author-box">
+                                <strong>Baruch Spinoza / G.W. Leibniz</strong>
+                                <span>Sistematizadores del método deductivo puro.</span>
+                            </div>
+                        </div>
+                        <div class="note-box">
+                            "El racionalismo busca verdades universales y necesarias que la simple experiencia empírica, por ser contingente, no puede garantizar."
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DIAPOSITIVA 4 -->
+            <div class="slide" id="slide-4">
+                <div class="slide-header">
+                    <div class="slide-number">4</div>
+                    <h2>Realismo</h2>
+                </div>
+                <div class="slide-content">
+                    <div class="content-left">
+                        <div class="definition">
+                            Postura que afirma que los objetos del conocimiento tienen una existencia independiente del sujeto cognoscente.
+                        </div>
+                        <div>
+                            <div class="section-title">Postulados Centrales</div>
+                            <ul class="bullet-list">
+                                <li>El mundo externo existe por sí mismo y es aprehensible.</li>
+                                <li>La verdad es concebida como <strong>adecuación</strong> (correspondencia entre el intelecto y la cosa).</li>
+                                <li>Independencia ontológica del objeto respecto de la mente humana.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="content-right">
+                        <div>
+                            <div class="section-title">Representantes</div>
+                            <div class="author-box">
+                                <strong>Aristóteles / Tomás de Aquino</strong>
+                                <span>Realismo Clásico (Hilemorfismo).</span>
+                            </div>
+                            <div class="author-box">
+                                <strong>Karl Popper</strong>
+                                <span>Realismo Científico Crítico Contemporáneo.</span>
+                            </div>
+                        </div>
+                        <div class="note-box">
+                            "A diferencia del realismo ingenuo (que cree que vemos las cosas exactamente como son), el realismo crítico acepta que nuestra percepción está mediada."
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DIAPOSITIVA 5 -->
+            <div class="slide" id="slide-5">
+                <div class="slide-header">
+                    <div class="slide-number">5</div>
+                    <h2>Idealismo</h2>
+                </div>
+                <div class="slide-content">
+                    <div class="content-left">
+                        <div class="definition">
+                            Asevera que el conocimiento está fundamentalmente determinado por el sujeto; la realidad es dependiente de la actividad mental.
+                        </div>
+                        <div>
+                            <div class="section-title">Postulados Centrales</div>
+                            <ul class="bullet-list">
+                                <li>El sujeto no es pasivo; <strong>construye activamente</strong> el objeto de conocimiento.</li>
+                                <li>Distinción clave entre Fenómeno (lo que se me aparece) y Noúmeno (la cosa en sí, incognoscible).</li>
+                                <li>Primacía de la conciencia en la estructuración de la realidad.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="content-right">
+                        <div>
+                            <div class="section-title">Representantes</div>
+                            <div class="author-box">
+                                <strong>Immanuel Kant</strong>
+                                <span>Idealismo Trascendental (El sujeto impone las formas de espacio y tiempo).</span>
+                            </div>
+                            <div class="author-box">
+                                <strong>G.W.F. Hegel</strong>
+                                <span>Idealismo Absoluto (Toda la realidad es el desarrollo del Espíritu).</span>
+                            </div>
+                        </div>
+                        <div class="note-box">
+                            "Para Kant, no podemos conocer la realidad tal cual es independientemente de nosotros, solo conocemos cómo se nos presenta tras ser procesada por nuestra mente."
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DIAPOSITIVA 6 -->
+            <div class="slide" id="slide-6">
+                <div class="slide-header">
+                    <div class="slide-number">6</div>
+                    <h2>Positivismo</h2>
+                </div>
+                <div class="slide-content">
+                    <div class="content-left">
+                        <div class="definition">
+                            Restringe el conocimiento válido a aquel derivado exclusivamente de la experiencia y verificado por el <strong>método científico</strong>.
+                        </div>
+                        <div>
+                            <div class="section-title">Postulados Centrales</div>
+                            <ul class="bullet-list">
+                                <li>Rechazo categórico de la metafísica, la teología y lo abstracto.</li>
+                                <li>Ley de los tres estados: Teológico, Metafísico y <strong>Positivo</strong> (científico).</li>
+                                <li>El progreso de la humanidad depende del avance de la ciencia empírica y comprobable.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="content-right">
+                        <div>
+                            <div class="section-title">Representantes</div>
+                            <div class="author-box">
+                                <strong>Auguste Comte</strong>
+                                <span>Fundador del Positivismo y la Sociología moderna.</span>
+                            </div>
+                            <div class="author-box">
+                                <strong>Círculo de Viena (Carnap, Schlick)</strong>
+                                <span>Neopositivismo lógico del siglo XX.</span>
+                            </div>
+                        </div>
+                        <div class="note-box">
+                            "Solo las proposiciones empíricamente verificables o las tautologías lógicas (matemáticas) tienen sentido cognoscitivo real."
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DIAPOSITIVA 7 -->
+            <div class="slide" id="slide-7">
+                <div class="slide-header">
+                    <div class="slide-number">7</div>
+                    <h2>Pragmatismo</h2>
+                </div>
+                <div class="slide-content">
+                    <div class="content-left">
+                        <div class="definition">
+                            Define el significado y la verdad de una idea exclusivamente en función de sus <strong>consecuencias prácticas</strong> y su eficacia.
+                        </div>
+                        <div>
+                            <div class="section-title">Postulados Centrales</div>
+                            <ul class="bullet-list">
+                                <li>La verdad no es estática; es mutable y se define por su utilidad para resolver problemas.</li>
+                                <li>El conocimiento es un instrumento biológico de adaptación al entorno.</li>
+                                <li>Rechazo de los debates teóricos que no tienen impacto en la vida real.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="content-right">
+                        <div>
+                            <div class="section-title">Representantes</div>
+                            <div class="author-box">
+                                <strong>Charles S. Peirce / William James</strong>
+                                <span>Pragmatismo lógico y psicológico.</span>
+                            </div>
+                            <div class="author-box">
+                                <strong>John Dewey</strong>
+                                <span>Instrumentalismo y filosofía de la educación.</span>
+                            </div>
+                        </div>
+                        <div class="note-box">
+                            "Una teoría es verdadera si, y solo si, funciona satisfactoriamente al ser aplicada en la experiencia."
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Barra de Controles -->
+    <div id="controls-bar">
+        <div class="progress-text" id="counter-text">Portada</div>
+        <div class="buttons">
+            <button id="btn-prev" class="btn-nav" disabled>
+                <!-- Icono Flecha Izquierda -->
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                Anterior
+            </button>
+            <button id="btn-next" class="btn-nav">
+                Siguiente
+                <!-- Icono Flecha Derecha -->
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- LÓGICA DE JAVASCRIPT DIRECTA Y SEGURA -->
+    <script>
+        // Aseguramos que el código se ejecute cuando el HTML esté listo
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // Seleccionar elementos del DOM
+            const slides = document.querySelectorAll('.slide');
             const btnPrev = document.getElementById('btn-prev');
             const btnNext = document.getElementById('btn-next');
-            const slideCounter = document.getElementById('slide-counter');
-            const btnPrint = document.getElementById('btn-print');
+            const counterText = document.getElementById('counter-text');
+            
+            let currentIndex = 0;
+            const totalSlides = slides.length;
 
-            function updateUI() {
-                // Actualizar visibilidad de diapositivas
-                slides.forEach((slide, index) => {
-                    if (index === currentSlide) {
-                        slide.classList.add('active');
-                    } else {
-                        slide.classList.remove('active');
-                    }
+            // Función para actualizar la pantalla
+            function updatePresentation() {
+                // 1. Quitar clase 'active' a todas
+                slides.forEach(function(slide) {
+                    slide.classList.remove('active');
                 });
+                
+                // 2. Agregar clase 'active' a la actual
+                slides[currentIndex].classList.add('active');
 
-                // Actualizar contador
-                slideCounter.textContent = `Diapositiva ${currentSlide + 1} de ${totalSlides}`;
+                // 3. Actualizar el texto del contador
+                if (currentIndex === 0) {
+                    counterText.textContent = "Portada";
+                } else {
+                    counterText.textContent = "Diapositiva " + currentIndex + " de " + (totalSlides - 1);
+                }
 
-                // Actualizar estado de botones
-                btnPrev.disabled = currentSlide === 0;
-                btnNext.disabled = currentSlide === totalSlides - 1;
-            }
+                // 4. Habilitar o deshabilitar botones
+                if (currentIndex === 0) {
+                    btnPrev.disabled = true;
+                } else {
+                    btnPrev.disabled = false;
+                }
 
-            function goToNext() {
-                if (currentSlide < totalSlides - 1) {
-                    currentSlide++;
-                    updateUI();
+                if (currentIndex === totalSlides - 1) {
+                    btnNext.disabled = true;
+                } else {
+                    btnNext.disabled = false;
                 }
             }
 
-            function goToPrev() {
-                if (currentSlide > 0) {
-                    currentSlide--;
-                    updateUI();
+            // Evento Botón Siguiente
+            btnNext.addEventListener('click', function() {
+                if (currentIndex < totalSlides - 1) {
+                    currentIndex++;
+                    updatePresentation();
                 }
-            }
-
-            // Event Listeners para botones
-            btnNext.addEventListener('click', goToNext);
-            btnPrev.addEventListener('click', goToPrev);
-            btnPrint.addEventListener('click', () => window.print());
-
-            // Navegación con teclado
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight') goToNext();
-                if (e.key === 'ArrowLeft') goToPrev();
             });
 
-            // Inicializar
-            updateUI();
+            // Evento Botón Anterior
+            btnPrev.addEventListener('click', function() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updatePresentation();
+                }
+            });
+
+            // Soporte para flechas del teclado
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'ArrowRight') {
+                    if (currentIndex < totalSlides - 1) {
+                        currentIndex++;
+                        updatePresentation();
+                    }
+                }
+                else if (event.key === 'ArrowLeft') {
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                        updatePresentation();
+                    }
+                }
+            });
+
+            // Iniciar presentación en la primera diapositiva
+            updatePresentation();
         });
     </script>
 </body>
