@@ -8,6 +8,22 @@ const fontStyles = `
   
   .font-montserrat { font-family: 'Montserrat', sans-serif; }
   .font-lato { font-family: 'Lato', sans-serif; }
+  
+  /* Estilo personalizado para la barra de desplazamiento */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #c6f6d5; 
+    border-radius: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #86efac; 
+  }
 `;
 
 // --- DATOS ACADÉMICOS DE LA PRESENTACIÓN ---
@@ -17,7 +33,8 @@ const slidesData = [
     title: 'Corrientes Gnoseológicas',
     subtitle: 'Un análisis histórico y conceptual de la teoría del conocimiento',
     author: 'Presentación Académica',
-    image: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=1000'
+    image: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=1000',
+    imageAlt: ''
   },
   {
     type: 'content',
@@ -33,7 +50,8 @@ const slidesData = [
       'Crítica a la actitud dogmática y a las verdades absolutas.'
     ],
     differences: 'Mientras que Pirrón sostuvo un escepticismo radical que buscaba la inacción para evitar el sufrimiento, David Hume propuso un escepticismo metodológico, reconociendo que la vida práctica requiere asentir a las probabilidades basadas en la costumbre.',
-    image: 'https://images.unsplash.com/photo-1480796927426-f609979314bd?auto=format&fit=crop&q=80&w=800'
+    image: 'https://images.unsplash.com/photo-1480796927426-f609979314bd?auto=format&fit=crop&q=80&w=800',
+    imageAlt: ''
   },
   {
     type: 'content',
@@ -49,7 +67,8 @@ const slidesData = [
       'Todo conocimiento complejo se deriva de impresiones simples previas.'
     ],
     differences: 'Locke defiende un realismo empírico. Berkeley postula un inmaterialismo ("esse est percipi" - ser es ser percibido), negando la materia. Hume lleva el empirismo a su límite lógico con el fenomenismo radical.',
-    image: 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=800'
+    image: 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=800',
+    imageAlt: ''
   },
   {
     type: 'content',
@@ -65,7 +84,8 @@ const slidesData = [
       'Desconfianza profunda en la información provista por los sentidos.'
     ],
     differences: 'Descartes establece un dualismo sustancial (mente/cuerpo). Spinoza resuelve esto con un monismo panteísta (una única sustancia, "Deus sive Natura"). Leibniz propone un pluralismo ontológico basado en infinitas "mónadas".',
-    image: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&q=80&w=800'
+    image: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&q=80&w=800',
+    imageAlt: ''
   },
   {
     type: 'content',
@@ -81,7 +101,8 @@ const slidesData = [
       'Independencia ontológica del objeto respecto de la mente.'
     ],
     differences: 'El realismo ingenuo asume que percibimos las cosas exactamente como son en sí mismas. El realismo crítico reconoce que nuestra percepción está mediada por procesos cognitivos, pero refiere a una realidad objetiva subyacente.',
-    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800'
+    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800',
+    imageAlt: ''
   },
   {
     type: 'content',
@@ -97,7 +118,8 @@ const slidesData = [
       'La primacía de la conciencia o el Espíritu en la constitución de la realidad.'
     ],
     differences: 'Kant propone que el sujeto impone formas a priori a la materia caótica sensorial, manteniendo la existencia de una cosa en sí incognoscible. Hegel elimina el noúmeno, argumentando que toda la realidad es el desarrollo dialéctico del Espíritu Absoluto.',
-    image: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&q=80&w=800'
+    image: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&q=80&w=800',
+    imageAlt: ''
   },
   {
     type: 'content',
@@ -113,7 +135,8 @@ const slidesData = [
       'Verificacionismo empírico como criterio de demarcación del significado.'
     ],
     differences: 'El positivismo de Comte tenía un enfoque fuertemente histórico y sociológico. El neopositivismo lógico del Círculo de Viena se diferenció al centrarse en el análisis lógico del lenguaje y el formalismo matemático.',
-    image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800'
+    image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800',
+    imageAlt: ''
   },
   {
     type: 'content',
@@ -128,7 +151,8 @@ const slidesData = [
       'Rechazo de dualismos estériles (teoría/práctica, mente/cuerpo).'
     ],
     differences: 'Peirce lo concibió como un método lógico-semiótico. James lo derivó hacia una teoría de la verdad con implicaciones psicológicas, justificando creencias por su utilidad vital. Dewey desarrolló el instrumentalismo enfocado en la educación y la democracia.',
-    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800'
+    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800',
+    imageAlt: ''
   }
 ];
 
@@ -147,7 +171,7 @@ export default function App() {
     window.print();
   };
 
-  // Keyboard navigation
+  // Navegación por teclado
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'ArrowRight') nextSlide();
@@ -195,7 +219,7 @@ export default function App() {
                 <div className="w-1/2 relative">
                   <img 
                     src={slide.image} 
-                    alt="" 
+                    alt={slide.imageAlt} 
                     className="absolute inset-0 w-full h-full object-cover"
                   />
                   <div className="absolute bottom-0 right-0 bg-white px-8 py-4 rounded-tl-3xl shadow-lg border-t-4 border-l-4 border-[#14532D]">
@@ -210,7 +234,7 @@ export default function App() {
                 {/* Cabecera de la diapositiva */}
                 <div className="border-b-4 border-[#22C55E] pb-4 mb-6 flex justify-between items-end print:pb-2 print:mb-4">
                   <h2 className="text-4xl font-montserrat font-bold text-[#14532D] print:text-3xl flex items-center">
-                    <span className="bg-[#14532D] text-white w-12 h-12 flex items-center justify-center rounded-lg mr-4 text-3xl">
+                    <span className="bg-[#14532D] text-white w-12 h-12 flex items-center justify-center rounded-lg mr-4 text-3xl shadow-md">
                       {index}
                     </span>
                     {slide.title.replace(/^[0-9.]+\s*/, '')} {/* Limpiamos el número del título original */}
@@ -222,7 +246,7 @@ export default function App() {
                   
                   {/* Columna Izquierda: Teoría (60%) */}
                   <div className="w-[60%] flex flex-col space-y-6 pr-4 overflow-y-auto custom-scrollbar">
-                    <section className="bg-[#F0FDF4] p-5 rounded-lg border-l-4 border-[#166534]">
+                    <section className="bg-[#F0FDF4] p-5 rounded-lg border-l-4 border-[#166534] shadow-sm">
                       <h3 className="text-lg font-montserrat font-bold text-[#166534] uppercase tracking-wider mb-2">
                         Definición
                       </h3>
@@ -252,21 +276,21 @@ export default function App() {
                     <div className="w-full h-48 rounded-xl overflow-hidden shadow-md relative group flex-shrink-0">
                       <img 
                         src={slide.image} 
-                        alt={`+\s*/, '')}]`} 
+                        alt={slide.imageAlt} 
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-[#14532D] mix-blend-multiply opacity-20"></div>
                     </div>
 
-                    <div className="flex-grow flex flex-col space-y-5 overflow-y-auto">
+                    <div className="flex-grow flex flex-col space-y-5 overflow-y-auto custom-scrollbar pr-2">
                       <section>
                         <h3 className="text-sm font-montserrat font-bold text-[#15803D] border-b-2 border-green-200 pb-1 mb-3 uppercase tracking-wider">
                           Autores Representativos
                         </h3>
                         <div className="space-y-3 font-lato print:text-base">
                           {slide.authors.map((authorData, i) => (
-                            <div key={i} className="flex flex-col bg-gray-50 p-2 rounded border border-gray-100">
-                              <span className="text-xs font-montserrat font-bold text-[#15803D] uppercase tracking-widest">{authorData.era}</span>
+                            <div key={i} className="flex flex-col bg-gray-50 p-3 rounded-md border border-gray-100 shadow-sm">
+                              <span className="text-xs font-montserrat font-bold text-[#15803D] uppercase tracking-widest mb-1">{authorData.era}</span>
                               <span className="text-[#1F2937] font-semibold text-sm">{authorData.names}</span>
                             </div>
                           ))}
@@ -277,7 +301,7 @@ export default function App() {
                         <h3 className="text-sm font-montserrat font-bold text-[#15803D] border-b-2 border-green-200 pb-1 mb-3 uppercase tracking-wider">
                           Divergencias Principales
                         </h3>
-                        <p className="text-sm leading-relaxed text-[#4B5563] font-lato italic bg-green-50/50 p-3 rounded-md border-l-2 border-green-300 print:text-xs">
+                        <p className="text-sm leading-relaxed text-[#4B5563] font-lato italic bg-green-50/50 p-4 rounded-md border-l-4 border-green-400 print:text-xs">
                           "{slide.differences}"
                         </p>
                       </section>
