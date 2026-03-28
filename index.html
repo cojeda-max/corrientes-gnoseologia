@@ -1,0 +1,326 @@
+import React, { useState, useEffect } from 'react';
+import { ChevronLeft, ChevronRight, Printer, BookOpen } from 'lucide-react';
+
+// --- ESTILOS DE FUENTES ---
+// Importamos Montserrat (Títulos) y Lato (Párrafos) desde Google Fonts
+const fontStyles = `
+  @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,500;0,700;0,800;1,500&display=swap');
+  
+  .font-montserrat { font-family: 'Montserrat', sans-serif; }
+  .font-lato { font-family: 'Lato', sans-serif; }
+`;
+
+// --- DATOS ACADÉMICOS DE LA PRESENTACIÓN ---
+const slidesData = [
+  {
+    type: 'title',
+    title: 'Corrientes Gnoseológicas',
+    subtitle: 'Un análisis histórico y conceptual de la teoría del conocimiento',
+    author: 'Presentación Académica',
+    image: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=1000'
+  },
+  {
+    type: 'content',
+    title: '1. Escepticismo',
+    definition: 'Doctrina gnoseológica que niega la posibilidad de alcanzar un conocimiento objetivo, firme, seguro y universalmente válido. Postula que la capacidad cognoscitiva humana está inherentemente limitada.',
+    authors: [
+      { era: 'Antigüedad', names: 'Pirrón de Elis, Sexto Empírico.' },
+      { era: 'Modernidad', names: 'Michel de Montaigne, David Hume (escepticismo moderado).' }
+    ],
+    postulates: [
+      'La epojé (suspensión del juicio) como única vía hacia la ataraxia (tranquilidad).',
+      'Relatividad de la percepción sensorial y debilidad de la razón deductiva.',
+      'Crítica a la actitud dogmática y a las verdades absolutas.'
+    ],
+    differences: 'Mientras que Pirrón sostuvo un escepticismo radical que buscaba la inacción para evitar el sufrimiento, David Hume propuso un escepticismo metodológico, reconociendo que la vida práctica requiere asentir a las probabilidades basadas en la costumbre.',
+    image: 'https://images.unsplash.com/photo-1480796927426-f609979314bd?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    type: 'content',
+    title: '2. Empirismo',
+    definition: 'Corriente epistemológica que sostiene que la experiencia sensible y la percepción son la única fuente válida y el límite del conocimiento humano.',
+    authors: [
+      { era: 'Antigüedad / Medioevo', names: 'Aristóteles (antecedente), Guillermo de Ockham.' },
+      { era: 'Modernidad', names: 'John Locke, George Berkeley, David Hume.' }
+    ],
+    postulates: [
+      'La mente humana es una tabula rasa (hoja en blanco) al nacer.',
+      'Rechazo absoluto a la existencia de ideas innatas.',
+      'Todo conocimiento complejo se deriva de impresiones simples previas.'
+    ],
+    differences: 'Locke defiende un realismo empírico. Berkeley postula un inmaterialismo ("esse est percipi" - ser es ser percibido), negando la materia. Hume lleva el empirismo a su límite lógico con el fenomenismo radical.',
+    image: 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    type: 'content',
+    title: '3. Racionalismo',
+    definition: 'Doctrina que postula a la razón como la fuente principal, independiente y autónoma de todo conocimiento verdadero, estructurado bajo un modelo lógico-matemático.',
+    authors: [
+      { era: 'Antigüedad', names: 'Platón, Parménides.' },
+      { era: 'Modernidad', names: 'René Descartes, Baruch Spinoza, G.W. Leibniz.' }
+    ],
+    postulates: [
+      'Existencia de ideas innatas inherentes al intelecto humano.',
+      'El método deductivo como paradigma para edificar el sistema del saber.',
+      'Desconfianza profunda en la información provista por los sentidos.'
+    ],
+    differences: 'Descartes establece un dualismo sustancial (mente/cuerpo). Spinoza resuelve esto con un monismo panteísta (una única sustancia, "Deus sive Natura"). Leibniz propone un pluralismo ontológico basado en infinitas "mónadas".',
+    image: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    type: 'content',
+    title: '4. Realismo',
+    definition: 'Postura epistemológica y ontológica que afirma que los objetos del conocimiento tienen una existencia independiente del sujeto cognoscente que los aprehende.',
+    authors: [
+      { era: 'Antigüedad / Edad Media', names: 'Aristóteles, Tomás de Aquino.' },
+      { era: 'Contemporaneidad', names: 'Karl Popper, Hilary Putnam (realismo científico).' }
+    ],
+    postulates: [
+      'El mundo externo es aprehensible y cognoscible.',
+      'La verdad es concebida como adecuación ("adaequatio rei et intellectus") entre el intelecto y la realidad externa.',
+      'Independencia ontológica del objeto respecto de la mente.'
+    ],
+    differences: 'El realismo ingenuo asume que percibimos las cosas exactamente como son en sí mismas. El realismo crítico reconoce que nuestra percepción está mediada por procesos cognitivos, pero refiere a una realidad objetiva subyacente.',
+    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    type: 'content',
+    title: '5. Idealismo',
+    definition: 'Corriente que asevera que el conocimiento está fundamentalmente determinado por las estructuras del sujeto, siendo la realidad "idea" o dependiente de la actividad mental.',
+    authors: [
+      { era: 'Modernidad', names: 'Immanuel Kant (idealismo trascendental).' },
+      { era: 'Siglo XIX', names: 'Fichte, Schelling, G.W.F. Hegel (idealismo absoluto).' }
+    ],
+    postulates: [
+      'El sujeto cognoscente no es pasivo; construye activamente el objeto de conocimiento.',
+      'Distinción epistemológica central entre el fenómeno (lo que aparece) y el noúmeno (la cosa en sí).',
+      'La primacía de la conciencia o el Espíritu en la constitución de la realidad.'
+    ],
+    differences: 'Kant propone que el sujeto impone formas a priori a la materia caótica sensorial, manteniendo la existencia de una cosa en sí incognoscible. Hegel elimina el noúmeno, argumentando que toda la realidad es el desarrollo dialéctico del Espíritu Absoluto.',
+    image: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    type: 'content',
+    title: '6. Positivismo',
+    definition: 'Doctrina que restringe el conocimiento válido y riguroso a aquel derivado exclusivamente de la experiencia empírica y verificado a través del método científico riguroso.',
+    authors: [
+      { era: 'Siglo XIX', names: 'Auguste Comte, John Stuart Mill.' },
+      { era: 'Siglo XX', names: 'Círculo de Viena (Carnap, Schlick) - Neopositivismo.' }
+    ],
+    postulates: [
+      'Rechazo categórico de la metafísica, la teología y cualquier especulación apriorística.',
+      'La ley de los tres estados (teológico, metafísico, positivo).',
+      'Verificacionismo empírico como criterio de demarcación del significado.'
+    ],
+    differences: 'El positivismo de Comte tenía un enfoque fuertemente histórico y sociológico. El neopositivismo lógico del Círculo de Viena se diferenció al centrarse en el análisis lógico del lenguaje y el formalismo matemático.',
+    image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    type: 'content',
+    title: '7. Pragmatismo',
+    definition: 'Corriente filosófica que define el significado de una proposición y su estatuto de verdad en función de sus consecuencias prácticas, su utilidad y su eficacia instrumental.',
+    authors: [
+      { era: 'Siglos XIX y XX', names: 'Charles Sanders Peirce, William James, John Dewey.' }
+    ],
+    postulates: [
+      'La verdad no es estática; es mutable y contingente al contexto y a la resolución de problemas.',
+      'El conocimiento es un instrumento biológico y social de adaptación al entorno.',
+      'Rechazo de dualismos estériles (teoría/práctica, mente/cuerpo).'
+    ],
+    differences: 'Peirce lo concibió como un método lógico-semiótico. James lo derivó hacia una teoría de la verdad con implicaciones psicológicas, justificando creencias por su utilidad vital. Dewey desarrolló el instrumentalismo enfocado en la educación y la democracia.',
+    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800'
+  }
+];
+
+export default function App() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const nextSlide = () => {
+    if (currentSlide < slidesData.length - 1) setCurrentSlide(currentSlide + 1);
+  };
+
+  const prevSlide = () => {
+    if (currentSlide > 0) setCurrentSlide(currentSlide - 1);
+  };
+
+  const handlePrint = () => {
+    window.print();
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentSlide]);
+
+  return (
+    <div className="min-h-screen bg-[#E8F5E9] flex flex-col items-center justify-center p-4 print:p-0 print:bg-white overflow-hidden">
+      {/* Inyectar las fuentes de Google Fonts */}
+      <style dangerouslySetInnerHTML={{ __html: fontStyles }} />
+
+      {/* Contenedor principal - Tamaño estándar de diapositiva 16:9 */}
+      <div className="w-full max-w-[1280px] aspect-[16/9] relative bg-white shadow-2xl rounded-lg overflow-hidden flex flex-col print:rounded-none print:shadow-none print:aspect-auto print:h-auto print:block">
+        
+        {slidesData.map((slide, index) => (
+          <div 
+            key={index} 
+            className={`
+              ${index === currentSlide ? 'flex' : 'hidden'} 
+              w-full h-full p-10 print:flex print:p-8 print:h-[100vh] print:page-break-after-always print:m-0 print:items-start print:justify-start
+              transition-opacity duration-500 bg-white
+            `}
+          >
+            {slide.type === 'title' ? (
+              // DIAPOSITIVA DE TÍTULO (Diseño dividido)
+              <div className="flex w-full h-full border-4 border-[#14532D] rounded-xl overflow-hidden print:border-2">
+                <div className="w-1/2 bg-[#1B5E20] text-white flex flex-col justify-center items-center p-12 text-center relative">
+                  {/* Overlay sutil */}
+                  <div className="absolute inset-0 bg-black opacity-10"></div>
+                  
+                  <div className="relative z-10 flex flex-col items-center">
+                    <BookOpen className="w-24 h-24 mb-8 text-[#A7F3D0] print:w-16 print:h-16" strokeWidth={1.5} />
+                    <h1 className="text-5xl lg:text-6xl font-montserrat font-bold mb-6 tracking-wide leading-tight print:text-4xl text-white">
+                      {slide.title}
+                    </h1>
+                    <div className="h-1 w-32 bg-[#4ADE80] mb-6 rounded-full"></div>
+                    <h2 className="text-xl lg:text-2xl font-lato italic text-[#D1FAE5] font-light print:text-xl">
+                      {slide.subtitle}
+                    </h2>
+                  </div>
+                </div>
+                <div className="w-1/2 relative">
+                  <img 
+                    src={slide.image} 
+                    alt="" 
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute bottom-0 right-0 bg-white px-8 py-4 rounded-tl-3xl shadow-lg border-t-4 border-l-4 border-[#14532D]">
+                    <p className="text-lg font-montserrat font-bold text-[#14532D] uppercase tracking-widest">{slide.author}</p>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              // DIAPOSITIVAS DE CONTENIDO (Diseño 16:9 con imagen)
+              <div className="flex flex-col h-full w-full">
+                
+                {/* Cabecera de la diapositiva */}
+                <div className="border-b-4 border-[#22C55E] pb-4 mb-6 flex justify-between items-end print:pb-2 print:mb-4">
+                  <h2 className="text-4xl font-montserrat font-bold text-[#14532D] print:text-3xl flex items-center">
+                    <span className="bg-[#14532D] text-white w-12 h-12 flex items-center justify-center rounded-lg mr-4 text-3xl">
+                      {index}
+                    </span>
+                    {slide.title.replace(/^[0-9.]+\s*/, '')} {/* Limpiamos el número del título original */}
+                  </h2>
+                </div>
+
+                {/* Contenido a dos columnas para aprovechar el 16:9 */}
+                <div className="flex flex-row gap-8 h-[calc(100%-5rem)]">
+                  
+                  {/* Columna Izquierda: Teoría (60%) */}
+                  <div className="w-[60%] flex flex-col space-y-6 pr-4 overflow-y-auto custom-scrollbar">
+                    <section className="bg-[#F0FDF4] p-5 rounded-lg border-l-4 border-[#166534]">
+                      <h3 className="text-lg font-montserrat font-bold text-[#166534] uppercase tracking-wider mb-2">
+                        Definición
+                      </h3>
+                      <p className="text-lg leading-relaxed text-[#374151] font-lato print:text-base">
+                        {slide.definition}
+                      </p>
+                    </section>
+
+                    <section className="flex-grow">
+                      <h3 className="text-lg font-montserrat font-bold text-[#166534] uppercase tracking-wider mb-3">
+                        Postulados Esenciales
+                      </h3>
+                      <ul className="list-none space-y-3 font-lato text-[#374151] print:text-base text-lg">
+                        {slide.postulates.map((postulate, i) => (
+                          <li key={i} className="flex items-start bg-white p-3 rounded shadow-sm border border-gray-100">
+                            <span className="text-[#22C55E] mr-3 mt-1 font-bold">✓</span>
+                            <span className="leading-relaxed">{postulate}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
+                  </div>
+
+                  {/* Columna Derecha: Imagen, Autores y Divergencias (40%) */}
+                  <div className="w-[40%] flex flex-col space-y-5 h-full">
+                    {/* Imagen Ilustrativa */}
+                    <div className="w-full h-48 rounded-xl overflow-hidden shadow-md relative group flex-shrink-0">
+                      <img 
+                        src={slide.image} 
+                        alt={`+\s*/, '')}]`} 
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-[#14532D] mix-blend-multiply opacity-20"></div>
+                    </div>
+
+                    <div className="flex-grow flex flex-col space-y-5 overflow-y-auto">
+                      <section>
+                        <h3 className="text-sm font-montserrat font-bold text-[#15803D] border-b-2 border-green-200 pb-1 mb-3 uppercase tracking-wider">
+                          Autores Representativos
+                        </h3>
+                        <div className="space-y-3 font-lato print:text-base">
+                          {slide.authors.map((authorData, i) => (
+                            <div key={i} className="flex flex-col bg-gray-50 p-2 rounded border border-gray-100">
+                              <span className="text-xs font-montserrat font-bold text-[#15803D] uppercase tracking-widest">{authorData.era}</span>
+                              <span className="text-[#1F2937] font-semibold text-sm">{authorData.names}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </section>
+
+                      <section className="flex-grow">
+                        <h3 className="text-sm font-montserrat font-bold text-[#15803D] border-b-2 border-green-200 pb-1 mb-3 uppercase tracking-wider">
+                          Divergencias Principales
+                        </h3>
+                        <p className="text-sm leading-relaxed text-[#4B5563] font-lato italic bg-green-50/50 p-3 rounded-md border-l-2 border-green-300 print:text-xs">
+                          "{slide.differences}"
+                        </p>
+                      </section>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Controles de Navegación */}
+      <div className="mt-8 flex justify-between items-center w-full max-w-[1280px] print:hidden">
+        <span className="text-[#166534] font-montserrat font-bold px-4 py-2 bg-white rounded-full shadow-sm">
+          Diapositiva {currentSlide + 1} de {slidesData.length}
+        </span>
+
+        <div className="flex space-x-4">
+          <button 
+            onClick={prevSlide} 
+            disabled={currentSlide === 0}
+            className="flex items-center px-5 py-3 bg-white text-[#166534] border border-[#166534] rounded-lg hover:bg-[#F0FDF4] disabled:opacity-50 disabled:cursor-not-allowed transition-all font-montserrat font-bold shadow-sm"
+          >
+            <ChevronLeft className="w-5 h-5 mr-1" /> Anterior
+          </button>
+          <button 
+            onClick={nextSlide} 
+            disabled={currentSlide === slidesData.length - 1}
+            className="flex items-center px-5 py-3 bg-[#166534] text-white rounded-lg hover:bg-[#14532D] disabled:opacity-50 disabled:cursor-not-allowed transition-all font-montserrat font-bold shadow-md"
+          >
+            Siguiente <ChevronRight className="w-5 h-5 ml-1" />
+          </button>
+        </div>
+        
+        <button 
+          onClick={handlePrint}
+          className="flex items-center px-5 py-3 bg-[#22C55E] text-white font-montserrat font-bold rounded-lg hover:bg-[#16A34A] transition-all shadow-md"
+        >
+          <Printer className="w-5 h-5 mr-2" /> Exportar / PDF
+        </button>
+      </div>
+    </div>
+  );
+}
